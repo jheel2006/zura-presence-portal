@@ -27,10 +27,10 @@ export const Features = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <AnimatedWrapper threshold={0.2}>
             <div className="relative h-full min-h-[400px] md:min-h-full flex items-center justify-center">
-              {/* Striking vertical robot/android image from Unsplash */}
+              {/* Vertical robot/android image from Unsplash */}
               <img
-                src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=800&q=80"
-                alt="Tall futuristic android or humanoid robot illustration"
+                src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=500&q=80"
+                alt="Portrait futuristic white humanoid robot"
                 className="w-auto h-[520px] max-w-[340px] object-cover rounded-xl shadow-2xl border-4 border-pink-500/30 bg-black"
                 style={{
                   zIndex: 2,
