@@ -10,11 +10,7 @@ export const useScrollAnimation = (options?: IntersectionObserverInit) => {
     if (!element) return;
 
     const observer = new IntersectionObserver(([entry]) => {
-      // Trigger animation only once when the element comes into view
-      if (entry.isIntersecting) {
-        setIsInView(true);
-        observer.unobserve(element);
-      }
+      setIsInView(entry.isIntersecting);
     }, options);
 
     observer.observe(element);
