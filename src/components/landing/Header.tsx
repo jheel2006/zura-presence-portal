@@ -12,7 +12,7 @@ export const Header = () => {
           <a href="#features" className="text-gray-300 hover:text-white transition-colors">Features</a>
           <a href="#how-it-works" className="text-gray-300 hover:text-white transition-colors">How It Works</a>
         </nav>
-        <Button className="font-bold bg-gradient-to-r from-cyan-400 to-blue-600 text-white hover:opacity-90 transition-opacity glow-shadow">
+        <Button className="font-bold bg-gradient-to-r from-pink-500 to-purple-600 text-white hover:opacity-90 transition-opacity glow-shadow">
           Pre-Order Now
         </Button>
       </div>

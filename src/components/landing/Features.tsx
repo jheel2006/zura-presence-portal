@@ -2,6 +2,7 @@
 import { ShieldCheck, Cpu, Droplets, Zap } from 'lucide-react';
 import { ReactNode } from 'react';
 import { AnimatedWrapper } from './AnimatedWrapper';
+import { Rocket } from 'lucide-react';
 
 interface FeatureCardProps {
   icon: ReactNode;
@@ -12,7 +13,7 @@ interface FeatureCardProps {
 const FeatureCard = ({ icon, title, description }: FeatureCardProps) => (
   <div className="p-6 rounded-lg border border-gray-800 bg-gray-900/50">
     <div className="flex items-start">
-      <div className="mr-4 text-cyan-400">{icon}</div>
+      <div className="mr-4 text-pink-400">{icon}</div>
       <div>
         <h3 className="text-xl font-orbitron font-semibold text-white">{title}</h3>
         <p className="mt-2 text-gray-400">{description}</p>
@@ -27,13 +28,13 @@ export const Features = () => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <AnimatedWrapper threshold={0.2}>
-            <div className="relative">
-              <img 
-                src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=2070&auto=format&fit=crop" 
-                alt="Futuristic technology" 
-                className="rounded-xl w-full h-full object-cover"
-              />
+            <div className="relative h-full min-h-[400px] md:min-h-full rounded-xl overflow-hidden p-8 flex items-center justify-center border border-gray-800">
+              <div className="features-background"></div>
               <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent"></div>
+              <div className="relative z-10 text-center">
+                <Rocket className="h-24 w-24 text-white/50 mx-auto" />
+                <p className="text-white/60 mt-4 font-orbitron">Engineered for Emotion</p>
+              </div>
             </div>
           </AnimatedWrapper>
           <div className="space-y-8">
