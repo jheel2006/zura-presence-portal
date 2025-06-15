@@ -28,10 +28,10 @@ export const Features = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <AnimatedWrapper threshold={0.2}>
             <div className="relative h-full min-h-[400px] md:min-h-full flex items-center justify-center">
-              {/* ABSOLUTELY VISIBLE, AMAZING ROBOT IMAGE */}
+              {/* Super cool robot image - using a striking illustration from Unsplash */}
               <img
-                src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=900&q=90"
-                alt="Futuristic android with neon and cybernetic features"
+                src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=900&q=80"
+                alt="Futuristic android or humanoid robot illustration"
                 className="w-full h-full max-h-[520px] object-contain rounded-xl shadow-2xl border-4 border-pink-500/30 bg-black"
                 style={{
                   zIndex: 2,
