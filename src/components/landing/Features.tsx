@@ -1,7 +1,7 @@
+
 import { ShieldCheck, Cpu, Droplets, Zap } from 'lucide-react';
 import { ReactNode } from 'react';
 import { AnimatedWrapper } from './AnimatedWrapper';
-import { Rocket } from 'lucide-react';
 
 interface FeatureCardProps {
   icon: ReactNode;
@@ -27,13 +27,14 @@ export const Features = () => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <AnimatedWrapper threshold={0.2}>
-            <div className="relative h-full min-h-[400px] md:min-h-full rounded-xl overflow-hidden p-8 flex items-center justify-center border border-gray-800">
+            <div className="relative h-full min-h-[400px] md:min-h-full rounded-xl overflow-hidden border border-gray-800">
+              <img
+                src="/photo-1485827404703-89b55fcc595e"
+                alt="A humanoid robot torso"
+                className="absolute inset-0 h-full w-full object-cover opacity-40"
+              />
               <div className="features-background"></div>
               <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent"></div>
-              <div className="relative z-10 text-center">
-                <Rocket className="h-24 w-24 text-white/50 mx-auto" />
-                <p className="text-white/60 mt-4 font-orbitron">Engineered for Emotion</p>
-              </div>
             </div>
           </AnimatedWrapper>
           <div className="space-y-8">
