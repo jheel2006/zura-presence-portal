@@ -1,3 +1,4 @@
+
 import { ShieldCheck, Cpu, Droplets, Zap } from 'lucide-react';
 import { ReactNode } from 'react';
 import { AnimatedWrapper } from './AnimatedWrapper';
@@ -26,17 +27,20 @@ export const Features = () => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <AnimatedWrapper threshold={0.2}>
-            <div className="relative h-full min-h-[400px] md:min-h-full rounded-xl overflow-hidden border border-gray-800 flex items-center justify-center bg-black/70">
+            <div className="relative h-full min-h-[400px] md:min-h-full flex items-center justify-center">
+              {/* ABSOLUTELY VISIBLE, AMAZING ROBOT IMAGE */}
               <img
-                src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80"
+                src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=900&q=90"
                 alt="Futuristic android with neon and cybernetic features"
-                className="absolute inset-0 w-full h-full object-cover object-center"
-                style={{ zIndex: 1, filter: "brightness(1.1) contrast(1.13) saturate(1.2)" }}
+                className="w-full h-full max-h-[520px] object-contain rounded-xl shadow-2xl border-4 border-pink-500/30 bg-black"
+                style={{
+                  zIndex: 2,
+                  boxShadow: "0 0 60px 7px rgba(236, 72, 153, 0.35), 0 0 0 4px rgba(236, 72, 153, 0.20)",
+                  background: "linear-gradient(140deg, rgba(236,72,153,0.08) 0%, rgba(124,58,237,0.27) 100%)"
+                }}
               />
-              <div className="features-background" style={{ zIndex: 2 }} />
-              {/* Use a strong gradient for darkening but keep robot visually clear */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" style={{ zIndex: 3 }}></div>
-              <div className="pointer-events-none absolute inset-0 rounded-xl ring-2 ring-pink-500/30" style={{ zIndex: 4 }} />
+              {/* Neon ring glow */}
+              <div className="pointer-events-none absolute inset-0 rounded-xl ring-4 ring-pink-500/40 blur-[2px]" style={{zIndex: 1}} />
             </div>
           </AnimatedWrapper>
           <div className="space-y-8">
