@@ -1,7 +1,16 @@
 
 import { Button } from "@/components/ui/button";
+import { useState, useEffect } from "react";
 
 export const Hero = () => {
+  const [offsetY, setOffsetY] = useState(0);
+  const handleScroll = () => setOffsetY(window.pageYOffset);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <section className="relative w-full h-screen flex items-center justify-center text-center overflow-hidden">
       <div className="absolute inset-0 bg-black">
@@ -9,6 +18,7 @@ export const Hero = () => {
           src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2070&auto=format&fit=crop" 
           alt="Futuristic companion" 
           className="w-full h-full object-cover opacity-30"
+          style={{ transform: `translateY(${offsetY * 0.4}px) scale(1.1)` }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black"></div>
       </div>
