@@ -1,4 +1,3 @@
-
 import { ShieldCheck, Cpu, Droplets, Zap } from 'lucide-react';
 import { ReactNode } from 'react';
 import { AnimatedWrapper } from './AnimatedWrapper';
@@ -28,11 +27,11 @@ export const Features = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <AnimatedWrapper threshold={0.2}>
             <div className="relative h-full min-h-[400px] md:min-h-full flex items-center justify-center">
-              {/* Super cool robot image - using a striking illustration from Unsplash */}
+              {/* Striking vertical robot/android image from Unsplash */}
               <img
-                src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=900&q=80"
-                alt="Futuristic android or humanoid robot illustration"
-                className="w-full h-full max-h-[520px] object-contain rounded-xl shadow-2xl border-4 border-pink-500/30 bg-black"
+                src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=800&q=80"
+                alt="Tall futuristic android or humanoid robot illustration"
+                className="w-auto h-[520px] max-w-[340px] object-cover rounded-xl shadow-2xl border-4 border-pink-500/30 bg-black"
                 style={{
                   zIndex: 2,
                   boxShadow: "0 0 60px 7px rgba(236, 72, 153, 0.35), 0 0 0 4px rgba(236, 72, 153, 0.20)",
