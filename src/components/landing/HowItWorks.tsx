@@ -1,4 +1,3 @@
-
 import { ScanFace, Send, UserCheck } from 'lucide-react';
 import { AnimatedWrapper } from './AnimatedWrapper';
 
@@ -22,7 +21,7 @@ const steps = [
 
 export const HowItWorks = () => {
   return (
-    <section id="how-it-works" className="py-20 sm:py-32 bg-black">
+    <section id="how-it-works" className="py-20 sm:py-32">
       <div className="container mx-auto px-4 md:px-6">
         <AnimatedWrapper threshold={0.2}>
           <div className="text-center">

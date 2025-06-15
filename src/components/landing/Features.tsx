@@ -1,4 +1,3 @@
-
 import { ShieldCheck, Cpu, Droplets, Zap } from 'lucide-react';
 import { ReactNode } from 'react';
 import { AnimatedWrapper } from './AnimatedWrapper';
@@ -24,7 +23,7 @@ const FeatureCard = ({ icon, title, description }: FeatureCardProps) => (
 
 export const Features = () => {
   return (
-    <section id="features" className="py-20 sm:py-32 bg-background">
+    <section id="features" className="py-20 sm:py-32">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <AnimatedWrapper threshold={0.2}>
