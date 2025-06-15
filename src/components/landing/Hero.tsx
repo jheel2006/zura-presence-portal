@@ -6,6 +6,12 @@ export const Hero = () => {
     <section className="relative w-full h-screen flex items-center justify-center text-center overflow-hidden">
       <div className="absolute inset-0">
         <div className="hero-background" />
+
+        {/* Animated Blobs */}
+        <div className="absolute top-0 left-0 w-96 h-96 bg-purple-600 rounded-full mix-blend-hard-light filter blur-3xl opacity-20 animate-float" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-pink-500 rounded-full mix-blend-hard-light filter blur-3xl opacity-20 animate-float" style={{ animationDelay: '2s' }} />
+        <div className="absolute top-1/2 right-1/4 w-[30rem] h-[30rem] bg-fuchsia-500 rounded-full mix-blend-hard-light filter blur-3xl opacity-15 animate-float" style={{ animationDelay: '4s' }} />
+
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black"></div>
       </div>
       
