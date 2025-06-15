@@ -1,6 +1,7 @@
 import { ShieldCheck, Cpu, Droplets, Zap } from 'lucide-react';
 import { ReactNode } from 'react';
 import { AnimatedWrapper } from './AnimatedWrapper';
+import React, { useRef, useState } from 'react';
 
 interface FeatureCardProps {
   icon: ReactNode;
@@ -21,12 +22,55 @@ const FeatureCard = ({ icon, title, description }: FeatureCardProps) => (
 );
 
 export const Features = () => {
+  // For the glowing mouse-follow effect
+  const imgContainerRef = useRef<HTMLDivElement | null>(null);
+  const [glowPos, setGlowPos] = useState<{ x: number; y: number } | null>(null);
+
+  // Mouse movement handler
+  function handleMouseMove(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    const rect = imgContainerRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    setGlowPos({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+  }
+  function handleMouseLeave() {
+    setGlowPos(null);
+  }
+
   return (
     <section id="features" className="py-20 sm:py-32">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <AnimatedWrapper threshold={0.2}>
-            <div className="relative h-full min-h-[400px] md:min-h-full flex items-center justify-center">
+            <div
+              ref={imgContainerRef}
+              className="relative h-full min-h-[400px] md:min-h-full flex items-center justify-center group"
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+              style={{}}
+            >
+              {/* Glowing effect that follows the mouse */}
+              {glowPos && (
+                <div
+                  style={{
+                    pointerEvents: 'none',
+                    position: 'absolute',
+                    left: glowPos.x - 100,
+                    top: glowPos.y - 100,
+                    width: 200,
+                    height: 200,
+                    borderRadius: '9999px',
+                    background:
+                      'radial-gradient(circle, rgba(236,72,153,0.18) 0%, rgba(30,0,50,0.02) 80%, transparent 100%)',
+                    filter: 'blur(12px)',
+                    zIndex: 3,
+                    transition: 'left 100ms, top 100ms',
+                  }}
+                />
+              )}
+
               {/* Vertical robot/android image with premium borders (different robot) */}
               <div className="relative flex items-center justify-center">
                 <img
