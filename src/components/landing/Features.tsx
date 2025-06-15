@@ -28,15 +28,14 @@ export const Features = () => {
           <AnimatedWrapper threshold={0.2}>
             <div className="relative h-full min-h-[400px] md:min-h-full rounded-xl overflow-hidden border border-gray-800 flex items-center justify-center bg-black/70">
               <img
-                src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80"
-                alt="Futuristic humanoid robot with glowing details"
+                src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80"
+                alt="Futuristic android with neon and cybernetic features"
                 className="absolute inset-0 w-full h-full object-cover object-center"
-                style={{ zIndex: 1, filter: "brightness(1.06) contrast(1.07) saturate(1.12)" }}
+                style={{ zIndex: 1, filter: "brightness(1.1) contrast(1.13) saturate(1.2)" }}
               />
               <div className="features-background" style={{ zIndex: 2 }} />
               {/* Use a strong gradient for darkening but keep robot visually clear */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" style={{ zIndex: 3 }}></div>
-              {/* Optionally, you could add a faint neon border or glow */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" style={{ zIndex: 3 }}></div>
               <div className="pointer-events-none absolute inset-0 rounded-xl ring-2 ring-pink-500/30" style={{ zIndex: 4 }} />
             </div>
           </AnimatedWrapper>
