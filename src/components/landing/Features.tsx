@@ -27,19 +27,30 @@ export const Features = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <AnimatedWrapper threshold={0.2}>
             <div className="relative h-full min-h-[400px] md:min-h-full flex items-center justify-center">
-              {/* Vertical robot/android image from Unsplash */}
-              <img
-                src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=500&q=80"
-                alt="Portrait futuristic white humanoid robot"
-                className="w-auto h-[520px] max-w-[340px] object-cover rounded-xl shadow-2xl border-4 border-pink-500/30 bg-black"
-                style={{
-                  zIndex: 2,
-                  boxShadow: "0 0 60px 7px rgba(236, 72, 153, 0.35), 0 0 0 4px rgba(236, 72, 153, 0.20)",
-                  background: "linear-gradient(140deg, rgba(236,72,153,0.08) 0%, rgba(124,58,237,0.27) 100%)"
-                }}
-              />
-              {/* Neon ring glow */}
-              <div className="pointer-events-none absolute inset-0 rounded-xl ring-4 ring-pink-500/40 blur-[2px]" style={{zIndex: 1}} />
+              {/* Improved vertical robot/android image with premium borders */}
+              <div className="relative flex items-center justify-center">
+                <img
+                  src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=500&q=80"
+                  alt="Portrait futuristic white humanoid robot"
+                  className="w-auto h-[520px] max-w-[340px] object-cover rounded-2xl border-2 border-pink-400/50 bg-black"
+                  style={{
+                    zIndex: 2,
+                    boxShadow: `
+                      0 0 100px 12px rgba(236, 72, 153, 0.32),
+                      0 4px 44px 0px rgba(197, 82, 255, 0.14)
+                    `,
+                    background: "linear-gradient(150deg, rgba(236,72,153,0.09) 0%, rgba(124,58,237,0.18) 100%)"
+                  }}
+                />
+                {/* Soft glow outer border, like legacy style */}
+                <div
+                  className="absolute inset-0 rounded-2xl ring-4 ring-pink-500/30 pointer-events-none"
+                  style={{
+                    filter: "blur(4px)",
+                    zIndex: 1,
+                  }}
+                />
+              </div>
             </div>
           </AnimatedWrapper>
           <div className="space-y-8">
