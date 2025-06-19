@@ -1,309 +1,5 @@
 
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, useGLTF, Html } from '@react-three/drei';
-import { useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
-import * as THREE from 'three';
 import { AnimatedWrapper } from './AnimatedWrapper';
-
-// More realistic human figure with enhanced holographic effects
-const RealisticHuman = () => {
-  const groupRef = useRef<THREE.Group>(null);
-  const particlesRef = useRef<THREE.Group>(null);
-
-  useFrame((state) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y = state.clock.elapsedTime * 0.3;
-    }
-    if (particlesRef.current) {
-      particlesRef.current.rotation.y = -state.clock.elapsedTime * 0.1;
-    }
-  });
-
-  // Enhanced holographic materials
-  const wireframeMaterial = new THREE.MeshBasicMaterial({
-    color: '#00ffff',
-    transparent: true,
-    opacity: 0.6,
-    wireframe: true,
-  });
-
-  const glowMaterial = new THREE.MeshStandardMaterial({
-    color: '#0088cc',
-    transparent: true,
-    opacity: 0.2,
-    emissive: '#0066aa',
-    emissiveIntensity: 0.8,
-    roughness: 0.1,
-    metalness: 0.7,
-  });
-
-  const innerGlowMaterial = new THREE.MeshStandardMaterial({
-    color: '#00aaff',
-    transparent: true,
-    opacity: 0.4,
-    emissive: '#0099dd',
-    emissiveIntensity: 1.2,
-  });
-
-  return (
-    <group ref={groupRef}>
-      {/* Head - more detailed */}
-      <group position={[0, 1.75, 0]}>
-        {/* Skull */}
-        <mesh>
-          <sphereGeometry args={[0.12, 32, 32]} />
-          <primitive object={wireframeMaterial} />
-        </mesh>
-        <mesh>
-          <sphereGeometry args={[0.11, 16, 16]} />
-          <primitive object={glowMaterial} />
-        </mesh>
-        
-        {/* Face features */}
-        <mesh position={[0, -0.02, 0.08]}>
-          <boxGeometry args={[0.08, 0.06, 0.04]} />
-          <primitive object={innerGlowMaterial} />
-        </mesh>
-        
-        {/* Eyes */}
-        <mesh position={[-0.03, 0.02, 0.09]}>
-          <sphereGeometry args={[0.01, 8, 8]} />
-          <meshBasicMaterial color="#00ffff" />
-        </mesh>
-        <mesh position={[0.03, 0.02, 0.09]}>
-          <sphereGeometry args={[0.01, 8, 8]} />
-          <meshBasicMaterial color="#00ffff" />
-        </mesh>
-      </group>
-      
-      {/* Neck - more anatomical */}
-      <mesh position={[0, 1.58, 0]}>
-        <cylinderGeometry args={[0.04, 0.05, 0.15]} />
-        <primitive object={wireframeMaterial} />
-      </mesh>
-      
-      {/* Torso - more detailed chest and abs */}
-      <group position={[0, 1.2, 0]}>
-        {/* Main torso */}
-        <mesh>
-          <boxGeometry args={[0.35, 0.5, 0.18]} />
-          <primitive object={wireframeMaterial} />
-        </mesh>
-        <mesh>
-          <boxGeometry args={[0.33, 0.48, 0.16]} />
-          <primitive object={glowMaterial} />
-        </mesh>
-        
-        {/* Chest definition */}
-        <mesh position={[0, 0.1, 0.05]}>
-          <boxGeometry args={[0.25, 0.15, 0.08]} />
-          <primitive object={innerGlowMaterial} />
-        </mesh>
-        
-        {/* Abs */}
-        <mesh position={[0, -0.1, 0.06]}>
-          <boxGeometry args={[0.15, 0.2, 0.06]} />
-          <primitive object={innerGlowMaterial} />
-        </mesh>
-      </group>
-      
-      {/* Shoulders */}
-      <mesh position={[-0.22, 1.4, 0]}>
-        <sphereGeometry args={[0.06, 16, 16]} />
-        <primitive object={wireframeMaterial} />
-      </mesh>
-      <mesh position={[0.22, 1.4, 0]}>
-        <sphereGeometry args={[0.06, 16, 16]} />
-        <primitive object={wireframeMaterial} />
-      </mesh>
-      
-      {/* Arms - more muscular definition */}
-      <group>
-        {/* Left upper arm */}
-        <mesh position={[-0.25, 1.15, 0]} rotation={[0, 0, 0.2]}>
-          <cylinderGeometry args={[0.045, 0.05, 0.35]} />
-          <primitive object={wireframeMaterial} />
-        </mesh>
-        
-        {/* Right upper arm */}
-        <mesh position={[0.25, 1.15, 0]} rotation={[0, 0, -0.2]}>
-          <cylinderGeometry args={[0.045, 0.05, 0.35]} />
-          <primitive object={wireframeMaterial} />
-        </mesh>
-        
-        {/* Elbows */}
-        <mesh position={[-0.3, 0.9, 0]}>
-          <sphereGeometry args={[0.04, 12, 12]} />
-          <primitive object={innerGlowMaterial} />
-        </mesh>
-        <mesh position={[0.3, 0.9, 0]}>
-          <sphereGeometry args={[0.04, 12, 12]} />
-          <primitive object={innerGlowMaterial} />
-        </mesh>
-        
-        {/* Forearms */}
-        <mesh position={[-0.32, 0.65, 0]} rotation={[0, 0, -0.1]}>
-          <cylinderGeometry args={[0.035, 0.04, 0.3]} />
-          <primitive object={wireframeMaterial} />
-        </mesh>
-        <mesh position={[0.32, 0.65, 0]} rotation={[0, 0, 0.1]}>
-          <cylinderGeometry args={[0.035, 0.04, 0.3]} />
-          <primitive object={wireframeMaterial} />
-        </mesh>
-      </group>
-      
-      {/* Hands - more detailed */}
-      <mesh position={[-0.35, 0.45, 0]}>
-        <boxGeometry args={[0.06, 0.08, 0.03]} />
-        <primitive object={wireframeMaterial} />
-      </mesh>
-      <mesh position={[0.35, 0.45, 0]}>
-        <boxGeometry args={[0.06, 0.08, 0.03]} />
-        <primitive object={wireframeMaterial} />
-      </mesh>
-      
-      {/* Pelvis - more anatomical */}
-      <mesh position={[0, 0.85, 0]}>
-        <boxGeometry args={[0.28, 0.15, 0.12]} />
-        <primitive object={wireframeMaterial} />
-      </mesh>
-      <mesh position={[0, 0.85, 0]}>
-        <boxGeometry args={[0.26, 0.13, 0.1]} />
-        <primitive object={glowMaterial} />
-      </mesh>
-      
-      {/* Thighs - more muscular */}
-      <mesh position={[-0.08, 0.55, 0]}>
-        <cylinderGeometry args={[0.06, 0.08, 0.4]} />
-        <primitive object={wireframeMaterial} />
-      </mesh>
-      <mesh position={[0.08, 0.55, 0]}>
-        <cylinderGeometry args={[0.06, 0.08, 0.4]} />
-        <primitive object={wireframeMaterial} />
-      </mesh>
-      
-      {/* Knees */}
-      <mesh position={[-0.08, 0.3, 0]}>
-        <sphereGeometry args={[0.05, 12, 12]} />
-        <primitive object={innerGlowMaterial} />
-      </mesh>
-      <mesh position={[0.08, 0.3, 0]}>
-        <sphereGeometry args={[0.05, 12, 12]} />
-        <primitive object={innerGlowMaterial} />
-      </mesh>
-      
-      {/* Calves - more defined */}
-      <mesh position={[-0.08, 0.05, 0]}>
-        <cylinderGeometry args={[0.045, 0.06, 0.35]} />
-        <primitive object={wireframeMaterial} />
-      </mesh>
-      <mesh position={[0.08, 0.05, 0]}>
-        <cylinderGeometry args={[0.045, 0.06, 0.35]} />
-        <primitive object={wireframeMaterial} />
-      </mesh>
-      
-      {/* Feet - more realistic */}
-      <mesh position={[-0.08, -0.15, 0.08]}>
-        <boxGeometry args={[0.07, 0.05, 0.2]} />
-        <primitive object={wireframeMaterial} />
-      </mesh>
-      <mesh position={[0.08, -0.15, 0.08]}>
-        <boxGeometry args={[0.07, 0.05, 0.2]} />
-        <primitive object={wireframeMaterial} />
-      </mesh>
-      
-      {/* Enhanced particle system */}
-      <group ref={particlesRef}>
-        {Array.from({ length: 40 }).map((_, i) => {
-          const angle = (i / 40) * Math.PI * 2;
-          const radius = 1.5 + Math.sin(i * 0.5) * 0.4;
-          const height = 0.5 + Math.sin((i / 40) * Math.PI * 6) * 1.2;
-          
-          return (
-            <mesh
-              key={i}
-              position={[
-                Math.cos(angle) * radius,
-                height,
-                Math.sin(angle) * radius
-              ]}
-              scale={0.015 + Math.sin(i * 3) * 0.01}
-            >
-              <sphereGeometry />
-              <meshBasicMaterial 
-                color={i % 3 === 0 ? "#00ffff" : i % 3 === 1 ? "#0099ff" : "#00ccee"}
-                transparent
-                opacity={0.8 + Math.sin(i * 2) * 0.2}
-              />
-            </mesh>
-          );
-        })}
-      </group>
-      
-      {/* Data stream lines */}
-      {Array.from({ length: 8 }).map((_, i) => (
-        <mesh
-          key={`line-${i}`}
-          position={[
-            Math.cos((i / 8) * Math.PI * 2) * 2,
-            0.8,
-            Math.sin((i / 8) * Math.PI * 2) * 2
-          ]}
-          rotation={[0, (i / 8) * Math.PI * 2, 0]}
-        >
-          <boxGeometry args={[0.01, 2, 0.01]} />
-          <meshBasicMaterial 
-            color="#00aaff"
-            transparent
-            opacity={0.6}
-          />
-        </mesh>
-      ))}
-    </group>
-  );
-};
-
-const Scene = () => {
-  return (
-    <>
-      <ambientLight intensity={0.1} color="#0044aa" />
-      <pointLight position={[3, 4, 3]} intensity={1.2} color="#00ccff" />
-      <pointLight position={[-3, -2, -3]} intensity={0.8} color="#0099ff" />
-      <pointLight position={[0, -3, 2]} intensity={0.6} color="#00aaff" />
-      
-      <spotLight
-        position={[0, 6, 0]}
-        angle={0.6}
-        penumbra={1}
-        intensity={1.5}
-        color="#00ddff"
-        target-position={[0, 1, 0]}
-      />
-      
-      <spotLight
-        position={[4, 2, 4]}
-        angle={0.3}
-        penumbra={0.8}
-        intensity={0.8}
-        color="#0088cc"
-        target-position={[0, 1, 0]}
-      />
-      
-      <RealisticHuman />
-      
-      <OrbitControls
-        enableZoom={true}
-        enablePan={false}
-        autoRotate={false}
-        minDistance={2.5}
-        maxDistance={10}
-        minPolarAngle={Math.PI / 6}
-        maxPolarAngle={Math.PI / 1.2}
-      />
-    </>
-  );
-};
 
 export const ThreeDHuman = () => {
   return (
@@ -324,30 +20,133 @@ export const ThreeDHuman = () => {
 
         <AnimatedWrapper delay={200}>
           <div className="relative">
-            <div className="w-full h-[700px] rounded-2xl overflow-hidden bg-gradient-to-br from-blue-900/10 to-cyan-900/10 backdrop-blur-sm border border-cyan-500/20 shadow-2xl">
-              <Canvas
-                camera={{ position: [0, 2, 5], fov: 45 }}
-                style={{ 
-                  background: 'radial-gradient(ellipse at center, #001133 0%, #000611 70%, #000000 100%)' 
-                }}
-              >
-                <Scene />
-              </Canvas>
+            <div className="w-full h-[700px] rounded-2xl overflow-hidden bg-gradient-to-br from-blue-900/10 to-cyan-900/10 backdrop-blur-sm border border-cyan-500/20 shadow-2xl relative">
+              {/* Main holographic human figure */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="relative w-80 h-96 flex items-center justify-center">
+                  {/* Realistic human silhouette with holographic effects */}
+                  <div 
+                    className="relative w-64 h-80 bg-gradient-to-b from-cyan-400/90 via-blue-500/80 to-cyan-600/90 rounded-full"
+                    style={{
+                      clipPath: `polygon(
+                        45% 5%, 55% 5%, 58% 8%, 60% 12%, 60% 18%, 58% 22%, 55% 25%, 45% 25%, 42% 22%, 40% 18%, 40% 12%, 42% 8%,
+                        38% 30%, 62% 30%, 65% 35%, 65% 55%, 68% 58%, 72% 60%, 72% 75%, 68% 78%, 65% 80%, 62% 82%, 58% 84%, 55% 92%, 52% 95%, 48% 95%, 45% 92%, 42% 84%, 38% 82%, 35% 80%, 32% 78%, 28% 75%, 28% 60%, 32% 58%, 35% 55%, 35% 35%,
+                        25% 35%, 20% 40%, 18% 45%, 15% 50%, 12% 60%, 10% 70%, 8% 80%, 6% 90%, 8% 95%, 12% 98%, 18% 98%, 22% 95%, 25% 90%, 28% 85%,
+                        72% 85%, 75% 90%, 78% 95%, 82% 98%, 88% 98%, 92% 95%, 94% 90%, 92% 80%, 90% 70%, 88% 60%, 85% 50%, 82% 45%, 80% 40%, 75% 35%
+                      )`,
+                      filter: 'drop-shadow(0 0 20px rgba(0, 255, 255, 0.8)) drop-shadow(0 0 40px rgba(0, 200, 255, 0.6))',
+                    }}
+                  >
+                    {/* Inner glow layers */}
+                    <div className="absolute inset-2 bg-gradient-to-b from-cyan-300/60 via-blue-400/50 to-cyan-500/60 rounded-full blur-sm"></div>
+                    <div className="absolute inset-4 bg-gradient-to-b from-cyan-200/40 via-blue-300/30 to-cyan-400/40 rounded-full blur-md"></div>
+                    
+                    {/* Anatomical details overlay */}
+                    <div className="absolute inset-0 opacity-70">
+                      {/* Head outline */}
+                      <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-16 h-20 border border-cyan-300/80 rounded-full"></div>
+                      
+                      {/* Torso lines */}
+                      <div className="absolute top-24 left-1/2 transform -translate-x-1/2 w-20 h-32">
+                        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-cyan-300/60"></div>
+                        <div className="absolute top-8 left-1/2 transform -translate-x-1/2 w-14 h-1 bg-cyan-300/60"></div>
+                        <div className="absolute top-12 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-cyan-300/60"></div>
+                        <div className="absolute top-16 left-1/2 transform -translate-x-1/2 w-10 h-1 bg-cyan-300/60"></div>
+                      </div>
+                      
+                      {/* Limb outlines */}
+                      <div className="absolute top-28 left-4 w-1 h-24 bg-cyan-300/50 transform rotate-12"></div>
+                      <div className="absolute top-28 right-4 w-1 h-24 bg-cyan-300/50 transform -rotate-12"></div>
+                      <div className="absolute bottom-20 left-1/2 transform -translate-x-4 w-1 h-16 bg-cyan-300/50"></div>
+                      <div className="absolute bottom-20 left-1/2 transform translate-x-3 w-1 h-16 bg-cyan-300/50"></div>
+                    </div>
+                    
+                    {/* Pulsing effect */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-cyan-400/30 via-blue-500/20 to-cyan-600/30 rounded-full animate-pulse"></div>
+                  </div>
+                  
+                  {/* Holographic scan lines */}
+                  <div className="absolute inset-0 pointer-events-none">
+                    {Array.from({ length: 12 }).map((_, i) => (
+                      <div
+                        key={i}
+                        className="absolute left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-cyan-400/60 to-transparent"
+                        style={{
+                          top: `${10 + i * 7}%`,
+                          animation: `scan-line 3s ease-in-out infinite ${i * 0.2}s`,
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+              
+              {/* Floating data particles */}
+              <div className="absolute inset-0 pointer-events-none">
+                {Array.from({ length: 30 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="absolute w-1 h-1 bg-cyan-400 rounded-full animate-pulse"
+                    style={{
+                      left: `${10 + (i * 7) % 80}%`,
+                      top: `${15 + (i * 11) % 70}%`,
+                      animationDelay: `${i * 0.1}s`,
+                      animationDuration: `${2 + (i % 3)}s`,
+                    }}
+                  />
+                ))}
+              </div>
+              
+              {/* Holographic grid background */}
+              <div className="absolute inset-0 opacity-20">
+                <div className="w-full h-full" style={{
+                  backgroundImage: `
+                    linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px)
+                  `,
+                  backgroundSize: '40px 40px'
+                }}></div>
+              </div>
+              
+              {/* Energy rings */}
+              {Array.from({ length: 4 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 border border-cyan-400/30 rounded-full"
+                  style={{
+                    width: `${200 + i * 80}px`,
+                    height: `${200 + i * 80}px`,
+                    animation: `rotate 10s linear infinite ${i * -2.5}s`,
+                  }}
+                />
+              ))}
             </div>
             
             <div className="absolute bottom-4 left-4 text-sm text-cyan-300 bg-black/40 backdrop-blur-sm px-4 py-2 rounded-lg border border-cyan-500/30">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
-                Holographic projection active • Interactive 3D model
+                Holographic projection active • Photorealistic avatar
               </div>
             </div>
             
             <div className="absolute top-4 right-4 text-xs text-cyan-400 bg-black/30 backdrop-blur-sm px-3 py-2 rounded-lg border border-cyan-500/20">
-              Neural network visualization
+              Neural interface active
             </div>
           </div>
         </AnimatedWrapper>
       </div>
+      
+      <style jsx>{`
+        @keyframes scan-line {
+          0%, 100% { opacity: 0; transform: scaleX(0); }
+          50% { opacity: 1; transform: scaleX(1); }
+        }
+        
+        @keyframes rotate {
+          from { transform: translate(-50%, -50%) rotate(0deg); }
+          to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+      `}</style>
     </section>
   );
 };
