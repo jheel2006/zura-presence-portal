@@ -37,7 +37,7 @@ export const ScrollOrb = () => {
     <div 
       aria-hidden 
       className="pointer-events-none fixed left-0 top-0 w-full h-full z-40"
-      style={{ mixBlendMode: "lighter" }}
+      style={{ mixBlendMode: "lighten" }}
     >
       <div
         style={{
