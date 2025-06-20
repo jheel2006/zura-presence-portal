@@ -1,169 +1,244 @@
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatedWrapper } from './AnimatedWrapper';
-import * as THREE from 'three';
+
+interface Particle {
+  x: number;
+  y: number;
+  targetX: number;
+  targetY: number;
+  vx: number;
+  vy: number;
+  size: number;
+  opacity: number;
+}
 
 export const ThreeDHuman = () => {
-  const mountRef = useRef<HTMLDivElement>(null);
-  const sceneRef = useRef<THREE.Scene | null>(null);
-  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animationRef = useRef<number>();
+  const particlesRef = useRef<Particle[]>([]);
+  const mouseRef = useRef({ x: 0, y: 0, isHovering: false });
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    if (!mountRef.current) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-    // Scene setup
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x0a0a0a);
-    sceneRef.current = scene;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
 
-    // Camera setup
-    const camera = new THREE.PerspectiveCamera(
-      75,
-      mountRef.current.clientWidth / mountRef.current.clientHeight,
-      0.1,
-      1000
-    );
-    camera.position.set(0, 1, 3);
-
-    // Renderer setup
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight);
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    rendererRef.current = renderer;
-    mountRef.current.appendChild(renderer.domElement);
-
-    // Lighting
-    const ambientLight = new THREE.AmbientLight(0x404040, 0.6);
-    scene.add(ambientLight);
-
-    const directionalLight = new THREE.DirectionalLight(0x00ffff, 1);
-    directionalLight.position.set(2, 4, 2);
-    directionalLight.castShadow = true;
-    scene.add(directionalLight);
-
-    const fillLight = new THREE.DirectionalLight(0x4444ff, 0.5);
-    fillLight.position.set(-2, 2, -2);
-    scene.add(fillLight);
-
-    // Create a realistic human-like figure using basic geometries
-    const humanGroup = new THREE.Group();
-
-    // Head
-    const headGeometry = new THREE.SphereGeometry(0.25, 32, 32);
-    const headMaterial = new THREE.MeshPhongMaterial({ 
-      color: 0x00aaff,
-      emissive: 0x001122,
-      transparent: true,
-      opacity: 0.8
-    });
-    const head = new THREE.Mesh(headGeometry, headMaterial);
-    head.position.y = 1.5;
-    humanGroup.add(head);
-
-    // Torso
-    const torsoGeometry = new THREE.CylinderGeometry(0.3, 0.35, 0.8, 16);
-    const torsoMaterial = new THREE.MeshPhongMaterial({ 
-      color: 0x0088dd,
-      emissive: 0x001122,
-      transparent: true,
-      opacity: 0.8
-    });
-    const torso = new THREE.Mesh(torsoGeometry, torsoMaterial);
-    torso.position.y = 0.8;
-    humanGroup.add(torso);
-
-    // Arms
-    const armGeometry = new THREE.CylinderGeometry(0.08, 0.1, 0.6, 12);
-    const armMaterial = new THREE.MeshPhongMaterial({ 
-      color: 0x0099ee,
-      emissive: 0x001122,
-      transparent: true,
-      opacity: 0.8
-    });
-    
-    const leftArm = new THREE.Mesh(armGeometry, armMaterial);
-    leftArm.position.set(-0.45, 0.8, 0);
-    leftArm.rotation.z = 0.3;
-    humanGroup.add(leftArm);
-
-    const rightArm = new THREE.Mesh(armGeometry, armMaterial);
-    rightArm.position.set(0.45, 0.8, 0);
-    rightArm.rotation.z = -0.3;
-    humanGroup.add(rightArm);
-
-    // Legs
-    const legGeometry = new THREE.CylinderGeometry(0.1, 0.12, 0.8, 12);
-    const legMaterial = new THREE.MeshPhongMaterial({ 
-      color: 0x0077cc,
-      emissive: 0x001122,
-      transparent: true,
-      opacity: 0.8
-    });
-    
-    const leftLeg = new THREE.Mesh(legGeometry, legMaterial);
-    leftLeg.position.set(-0.15, -0.2, 0);
-    humanGroup.add(leftLeg);
-
-    const rightLeg = new THREE.Mesh(legGeometry, legMaterial);
-    rightLeg.position.set(0.15, -0.2, 0);
-    humanGroup.add(rightLeg);
-
-    scene.add(humanGroup);
-
-    // Mouse controls for rotation
-    let isMouseDown = false;
-    let mouseX = 0;
-    let mouseY = 0;
-
-    const handleMouseDown = (event: MouseEvent) => {
-      isMouseDown = true;
-      mouseX = event.clientX;
-      mouseY = event.clientY;
+    const resizeCanvas = () => {
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * window.devicePixelRatio;
+      canvas.height = rect.height * window.devicePixelRatio;
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+      canvas.style.width = rect.width + 'px';
+      canvas.style.height = rect.height + 'px';
     };
 
-    const handleMouseMove = (event: MouseEvent) => {
-      if (!isMouseDown) return;
-      
-      const deltaX = event.clientX - mouseX;
-      const deltaY = event.clientY - mouseY;
-      
-      humanGroup.rotation.y += deltaX * 0.01;
-      humanGroup.rotation.x += deltaY * 0.01;
-      
-      mouseX = event.clientX;
-      mouseY = event.clientY;
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Create human silhouette points
+    const createHumanSilhouette = () => {
+      const particles: Particle[] = [];
+      const centerX = canvas.clientWidth / 2;
+      const centerY = canvas.clientHeight / 2;
+      const scale = Math.min(canvas.clientWidth, canvas.clientHeight) / 600;
+
+      // Head (circle)
+      for (let angle = 0; angle < Math.PI * 2; angle += 0.2) {
+        const radius = 60 * scale;
+        const x = centerX + Math.cos(angle) * radius;
+        const y = centerY - 180 * scale + Math.sin(angle) * radius;
+        particles.push({
+          x: centerX + (Math.random() - 0.5) * 400,
+          y: centerY + (Math.random() - 0.5) * 400,
+          targetX: x,
+          targetY: y,
+          vx: 0,
+          vy: 0,
+          size: 2 + Math.random() * 3,
+          opacity: 0.6 + Math.random() * 0.4
+        });
+      }
+
+      // Neck
+      for (let y = -120; y <= -80; y += 8) {
+        for (let x = -10; x <= 10; x += 8) {
+          particles.push({
+            x: centerX + (Math.random() - 0.5) * 400,
+            y: centerY + (Math.random() - 0.5) * 400,
+            targetX: centerX + x * scale,
+            targetY: centerY + y * scale,
+            vx: 0,
+            vy: 0,
+            size: 2 + Math.random() * 2,
+            opacity: 0.6 + Math.random() * 0.4
+          });
+        }
+      }
+
+      // Torso
+      for (let y = -80; y <= 80; y += 6) {
+        const width = 80 - Math.abs(y) * 0.3;
+        for (let x = -width; x <= width; x += 8) {
+          if (Math.abs(x) > width - 15 || Math.random() > 0.7) {
+            particles.push({
+              x: centerX + (Math.random() - 0.5) * 400,
+              y: centerY + (Math.random() - 0.5) * 400,
+              targetX: centerX + x * scale,
+              targetY: centerY + y * scale,
+              vx: 0,
+              vy: 0,
+              size: 2 + Math.random() * 3,
+              opacity: 0.5 + Math.random() * 0.5
+            });
+          }
+        }
+      }
+
+      // Arms
+      for (let side of [-1, 1]) {
+        for (let y = -60; y <= 40; y += 8) {
+          const armX = side * (60 + (y + 60) * 0.3);
+          for (let x = armX - 15; x <= armX + 15; x += 8) {
+            particles.push({
+              x: centerX + (Math.random() - 0.5) * 400,
+              y: centerY + (Math.random() - 0.5) * 400,
+              targetX: centerX + x * scale,
+              targetY: centerY + y * scale,
+              vx: 0,
+              vy: 0,
+              size: 2 + Math.random() * 2,
+              opacity: 0.5 + Math.random() * 0.5
+            });
+          }
+        }
+      }
+
+      // Legs
+      for (let side of [-1, 1]) {
+        for (let y = 80; y <= 220; y += 8) {
+          const legX = side * 30;
+          for (let x = legX - 20; x <= legX + 20; x += 8) {
+            particles.push({
+              x: centerX + (Math.random() - 0.5) * 400,
+              y: centerY + (Math.random() - 0.5) * 400,
+              targetX: centerX + x * scale,
+              targetY: centerY + y * scale,
+              vx: 0,
+              vy: 0,
+              size: 2 + Math.random() * 3,
+              opacity: 0.5 + Math.random() * 0.5
+            });
+          }
+        }
+      }
+
+      return particles;
     };
 
-    const handleMouseUp = () => {
-      isMouseDown = false;
+    particlesRef.current = createHumanSilhouette();
+    setIsLoaded(true);
+
+    // Mouse tracking
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      mouseRef.current.x = e.clientX - rect.left;
+      mouseRef.current.y = e.clientY - rect.top;
     };
 
-    renderer.domElement.addEventListener('mousedown', handleMouseDown);
-    renderer.domElement.addEventListener('mousemove', handleMouseMove);
-    renderer.domElement.addEventListener('mouseup', handleMouseUp);
+    const handleMouseEnter = () => {
+      mouseRef.current.isHovering = true;
+    };
+
+    const handleMouseLeave = () => {
+      mouseRef.current.isHovering = false;
+    };
+
+    canvas.addEventListener('mousemove', handleMouseMove);
+    canvas.addEventListener('mouseenter', handleMouseEnter);
+    canvas.addEventListener('mouseleave', handleMouseLeave);
 
     // Animation loop
     const animate = () => {
-      requestAnimationFrame(animate);
+      ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
       
-      if (!isMouseDown) {
-        humanGroup.rotation.y += 0.005;
-      }
-      
-      renderer.render(scene, camera);
+      particlesRef.current.forEach(particle => {
+        // Calculate attraction to target position
+        const targetForceX = (particle.targetX - particle.x) * 0.02;
+        const targetForceY = (particle.targetY - particle.y) * 0.02;
+
+        // Calculate mouse repulsion
+        let repulsionX = 0;
+        let repulsionY = 0;
+        
+        if (mouseRef.current.isHovering) {
+          const dx = particle.x - mouseRef.current.x;
+          const dy = particle.y - mouseRef.current.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          const repulsionRadius = 100;
+          
+          if (distance < repulsionRadius && distance > 0) {
+            const force = (repulsionRadius - distance) / repulsionRadius;
+            repulsionX = (dx / distance) * force * 3;
+            repulsionY = (dy / distance) * force * 3;
+          }
+        }
+
+        // Apply forces
+        particle.vx += targetForceX + repulsionX;
+        particle.vy += targetForceY + repulsionY;
+        
+        // Apply damping
+        particle.vx *= 0.9;
+        particle.vy *= 0.9;
+        
+        // Update position
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+
+        // Draw particle with glow effect
+        ctx.save();
+        ctx.globalAlpha = particle.opacity;
+        
+        // Outer glow
+        const gradient = ctx.createRadialGradient(
+          particle.x, particle.y, 0,
+          particle.x, particle.y, particle.size * 3
+        );
+        gradient.addColorStop(0, '#00ffff');
+        gradient.addColorStop(0.5, '#0088ff');
+        gradient.addColorStop(1, 'transparent');
+        
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.size * 3, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Core particle
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        ctx.fill();
+        
+        ctx.restore();
+      });
+
+      animationRef.current = requestAnimationFrame(animate);
     };
+
     animate();
 
-    // Cleanup
     return () => {
-      if (mountRef.current && renderer.domElement) {
-        mountRef.current.removeChild(renderer.domElement);
+      window.removeEventListener('resize', resizeCanvas);
+      canvas.removeEventListener('mousemove', handleMouseMove);
+      canvas.removeEventListener('mouseenter', handleMouseEnter);
+      canvas.removeEventListener('mouseleave', handleMouseLeave);
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
       }
-      renderer.domElement.removeEventListener('mousedown', handleMouseDown);
-      renderer.domElement.removeEventListener('mousemove', handleMouseMove);
-      renderer.domElement.removeEventListener('mouseup', handleMouseUp);
-      renderer.dispose();
     };
   }, []);
 
@@ -178,28 +253,27 @@ export const ThreeDHuman = () => {
               Advanced Digital Human
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Experience the future of human-digital interaction with our photorealistic 3D avatar technology
+              Experience the future of human-digital interaction through particle-based avatar technology
             </p>
           </div>
         </AnimatedWrapper>
 
         <AnimatedWrapper delay={200}>
           <div className="relative">
-            <div 
-              ref={mountRef}
-              className="w-full h-[700px] rounded-2xl overflow-hidden bg-gradient-to-br from-blue-900/10 to-cyan-900/10 backdrop-blur-sm border border-cyan-500/20 shadow-2xl"
-              style={{ cursor: 'grab' }}
+            <canvas
+              ref={canvasRef}
+              className="w-full h-[700px] rounded-2xl bg-gradient-to-br from-blue-900/10 to-cyan-900/10 backdrop-blur-sm border border-cyan-500/20 shadow-2xl cursor-crosshair"
             />
             
             <div className="absolute bottom-4 left-4 text-sm text-cyan-300 bg-black/40 backdrop-blur-sm px-4 py-2 rounded-lg border border-cyan-500/30">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
-                3D Avatar Active • Click and drag to rotate
+                Particle System Active • Hover to interact
               </div>
             </div>
             
             <div className="absolute top-4 right-4 text-xs text-cyan-400 bg-black/30 backdrop-blur-sm px-3 py-2 rounded-lg border border-cyan-500/20">
-              Neural interface online
+              {isLoaded ? `${particlesRef.current.length} particles` : 'Loading...'}
             </div>
           </div>
         </AnimatedWrapper>
