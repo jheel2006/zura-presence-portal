@@ -4,7 +4,7 @@ import { AnimatedWrapper } from './AnimatedWrapper';
 import { Phone, MessageSquare, Video, Users } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
-const StatCounter = ({ end, duration = 2000, suffix = "" }: { end: number; duration?: number; suffix?: string }) => {
+const StatCounter = ({ end, duration = 1000, suffix = "" }: { end: number; duration?: number; suffix?: string }) => {
   const [count, setCount] = useState(0);
   const { ref, isInView } = useScrollAnimation({ threshold: 0.5 });
 

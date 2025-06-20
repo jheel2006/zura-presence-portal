@@ -4,7 +4,6 @@ import { Hero } from "@/components/landing/Hero";
 import { ProblemStatement } from "@/components/landing/ProblemStatement";
 import { HowItWorks } from "@/components/landing/HowItWorks";
 import { Features } from "@/components/landing/Features";
-import { ThreeDHuman } from "@/components/landing/ThreeDHuman";
 import { Footer } from "@/components/landing/Footer";
 import { GlobalCursorGlow } from "@/components/GlobalCursorGlow";
 
@@ -19,7 +18,6 @@ const Index = () => {
         <Hero />
         <ProblemStatement />
         <Features />
-        <ThreeDHuman />
         <HowItWorks />
       </main>
       <Footer />
