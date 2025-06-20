@@ -11,6 +11,7 @@ interface Particle {
   vy: number;
   size: number;
   opacity: number;
+  color: string;
 }
 
 export const ThreeDHuman = () => {
@@ -39,98 +40,171 @@ export const ThreeDHuman = () => {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Create human silhouette points
-    const createHumanSilhouette = () => {
+    // Create realistic human body silhouette
+    const createRealisticHuman = () => {
       const particles: Particle[] = [];
       const centerX = canvas.clientWidth / 2;
       const centerY = canvas.clientHeight / 2;
-      const scale = Math.min(canvas.clientWidth, canvas.clientHeight) / 600;
+      const scale = Math.min(canvas.clientWidth, canvas.clientHeight) / 700;
 
-      // Head (circle)
-      for (let angle = 0; angle < Math.PI * 2; angle += 0.2) {
-        const radius = 60 * scale;
-        const x = centerX + Math.cos(angle) * radius;
-        const y = centerY - 180 * scale + Math.sin(angle) * radius;
-        particles.push({
-          x: centerX + (Math.random() - 0.5) * 400,
-          y: centerY + (Math.random() - 0.5) * 400,
-          targetX: x,
-          targetY: y,
-          vx: 0,
-          vy: 0,
-          size: 2 + Math.random() * 3,
-          opacity: 0.6 + Math.random() * 0.4
-        });
-      }
+      const colors = ['#00ffff', '#0088ff', '#44ccff', '#88ddff', '#aaeeff'];
 
-      // Neck
-      for (let y = -120; y <= -80; y += 8) {
-        for (let x = -10; x <= 10; x += 8) {
+      // Head (detailed oval)
+      for (let angle = 0; angle < Math.PI * 2; angle += 0.1) {
+        const radiusX = 45 * scale;
+        const radiusY = 55 * scale;
+        const x = centerX + Math.cos(angle) * radiusX;
+        const y = centerY - 200 * scale + Math.sin(angle) * radiusY;
+        
+        // Add multiple layers for depth
+        for (let layer = 0; layer < 3; layer++) {
+          const offsetX = (Math.random() - 0.5) * 15;
+          const offsetY = (Math.random() - 0.5) * 15;
           particles.push({
-            x: centerX + (Math.random() - 0.5) * 400,
-            y: centerY + (Math.random() - 0.5) * 400,
-            targetX: centerX + x * scale,
-            targetY: centerY + y * scale,
+            x: centerX + (Math.random() - 0.5) * 600,
+            y: centerY + (Math.random() - 0.5) * 600,
+            targetX: x + offsetX,
+            targetY: y + offsetY,
             vx: 0,
             vy: 0,
-            size: 2 + Math.random() * 2,
-            opacity: 0.6 + Math.random() * 0.4
+            size: 1.5 + Math.random() * 2,
+            opacity: 0.6 + Math.random() * 0.4,
+            color: colors[Math.floor(Math.random() * colors.length)]
           });
         }
       }
 
-      // Torso
-      for (let y = -80; y <= 80; y += 6) {
-        const width = 80 - Math.abs(y) * 0.3;
-        for (let x = -width; x <= width; x += 8) {
-          if (Math.abs(x) > width - 15 || Math.random() > 0.7) {
+      // Neck
+      for (let y = -145; y <= -100; y += 4) {
+        const width = 20 - Math.abs(y + 122.5) * 0.2;
+        for (let x = -width; x <= width; x += 4) {
+          particles.push({
+            x: centerX + (Math.random() - 0.5) * 600,
+            y: centerY + (Math.random() - 0.5) * 600,
+            targetX: centerX + x * scale,
+            targetY: centerY + y * scale,
+            vx: 0,
+            vy: 0,
+            size: 1 + Math.random() * 2,
+            opacity: 0.5 + Math.random() * 0.4,
+            color: colors[Math.floor(Math.random() * colors.length)]
+          });
+        }
+      }
+
+      // Torso (realistic chest and waist)
+      for (let y = -100; y <= 100; y += 3) {
+        let width;
+        if (y < -50) {
+          // Chest area - broader
+          width = 70 - Math.abs(y + 75) * 0.3;
+        } else if (y < 0) {
+          // Upper torso
+          width = 65 - Math.abs(y) * 0.2;
+        } else {
+          // Lower torso - narrower
+          width = 50 - y * 0.1;
+        }
+        
+        for (let x = -width; x <= width; x += 4) {
+          // Create body outline and some internal structure
+          if (Math.abs(x) > width - 20 || Math.random() > 0.6) {
             particles.push({
-              x: centerX + (Math.random() - 0.5) * 400,
-              y: centerY + (Math.random() - 0.5) * 400,
+              x: centerX + (Math.random() - 0.5) * 600,
+              y: centerY + (Math.random() - 0.5) * 600,
               targetX: centerX + x * scale,
               targetY: centerY + y * scale,
               vx: 0,
               vy: 0,
-              size: 2 + Math.random() * 3,
-              opacity: 0.5 + Math.random() * 0.5
+              size: 1.5 + Math.random() * 2.5,
+              opacity: 0.4 + Math.random() * 0.5,
+              color: colors[Math.floor(Math.random() * colors.length)]
             });
           }
         }
       }
 
-      // Arms
+      // Arms (more realistic proportions)
       for (let side of [-1, 1]) {
-        for (let y = -60; y <= 40; y += 8) {
-          const armX = side * (60 + (y + 60) * 0.3);
-          for (let x = armX - 15; x <= armX + 15; x += 8) {
+        // Upper arm
+        for (let y = -80; y <= 20; y += 4) {
+          const armX = side * (75 + (y + 80) * 0.2);
+          const armWidth = 20 - Math.abs(y + 30) * 0.1;
+          
+          for (let x = armX - armWidth; x <= armX + armWidth; x += 4) {
             particles.push({
-              x: centerX + (Math.random() - 0.5) * 400,
-              y: centerY + (Math.random() - 0.5) * 400,
+              x: centerX + (Math.random() - 0.5) * 600,
+              y: centerY + (Math.random() - 0.5) * 600,
               targetX: centerX + x * scale,
               targetY: centerY + y * scale,
               vx: 0,
               vy: 0,
-              size: 2 + Math.random() * 2,
-              opacity: 0.5 + Math.random() * 0.5
+              size: 1 + Math.random() * 2,
+              opacity: 0.4 + Math.random() * 0.5,
+              color: colors[Math.floor(Math.random() * colors.length)]
+            });
+          }
+        }
+        
+        // Forearm
+        for (let y = 20; y <= 80; y += 4) {
+          const armX = side * (95 + (y - 20) * 0.1);
+          const armWidth = 15;
+          
+          for (let x = armX - armWidth; x <= armX + armWidth; x += 4) {
+            particles.push({
+              x: centerX + (Math.random() - 0.5) * 600,
+              y: centerY + (Math.random() - 0.5) * 600,
+              targetX: centerX + x * scale,
+              targetY: centerY + y * scale,
+              vx: 0,
+              vy: 0,
+              size: 1 + Math.random() * 2,
+              opacity: 0.4 + Math.random() * 0.5,
+              color: colors[Math.floor(Math.random() * colors.length)]
             });
           }
         }
       }
 
-      // Legs
+      // Legs (realistic thigh and calf)
       for (let side of [-1, 1]) {
-        for (let y = 80; y <= 220; y += 8) {
-          const legX = side * 30;
-          for (let x = legX - 20; x <= legX + 20; x += 8) {
+        // Thigh
+        for (let y = 100; y <= 180; y += 4) {
+          const legX = side * (25 + (y - 100) * 0.1);
+          const legWidth = 25 - (y - 100) * 0.1;
+          
+          for (let x = legX - legWidth; x <= legX + legWidth; x += 4) {
             particles.push({
-              x: centerX + (Math.random() - 0.5) * 400,
-              y: centerY + (Math.random() - 0.5) * 400,
+              x: centerX + (Math.random() - 0.5) * 600,
+              y: centerY + (Math.random() - 0.5) * 600,
               targetX: centerX + x * scale,
               targetY: centerY + y * scale,
               vx: 0,
               vy: 0,
-              size: 2 + Math.random() * 3,
-              opacity: 0.5 + Math.random() * 0.5
+              size: 1.5 + Math.random() * 2.5,
+              opacity: 0.4 + Math.random() * 0.5,
+              color: colors[Math.floor(Math.random() * colors.length)]
+            });
+          }
+        }
+        
+        // Calf
+        for (let y = 180; y <= 260; y += 4) {
+          const legX = side * (35 - (y - 180) * 0.05);
+          const legWidth = 18 - (y - 180) * 0.05;
+          
+          for (let x = legX - legWidth; x <= legX + legWidth; x += 4) {
+            particles.push({
+              x: centerX + (Math.random() - 0.5) * 600,
+              y: centerY + (Math.random() - 0.5) * 600,
+              targetX: centerX + x * scale,
+              targetY: centerY + y * scale,
+              vx: 0,
+              vy: 0,
+              size: 1.5 + Math.random() * 2,
+              opacity: 0.4 + Math.random() * 0.5,
+              color: colors[Math.floor(Math.random() * colors.length)]
             });
           }
         }
@@ -139,7 +213,7 @@ export const ThreeDHuman = () => {
       return particles;
     };
 
-    particlesRef.current = createHumanSilhouette();
+    particlesRef.current = createRealisticHuman();
     setIsLoaded(true);
 
     // Mouse tracking
@@ -167,8 +241,8 @@ export const ThreeDHuman = () => {
       
       particlesRef.current.forEach(particle => {
         // Calculate attraction to target position
-        const targetForceX = (particle.targetX - particle.x) * 0.02;
-        const targetForceY = (particle.targetY - particle.y) * 0.02;
+        const targetForceX = (particle.targetX - particle.x) * 0.03;
+        const targetForceY = (particle.targetY - particle.y) * 0.03;
 
         // Calculate mouse repulsion
         let repulsionX = 0;
@@ -178,12 +252,12 @@ export const ThreeDHuman = () => {
           const dx = particle.x - mouseRef.current.x;
           const dy = particle.y - mouseRef.current.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
-          const repulsionRadius = 100;
+          const repulsionRadius = 120;
           
           if (distance < repulsionRadius && distance > 0) {
             const force = (repulsionRadius - distance) / repulsionRadius;
-            repulsionX = (dx / distance) * force * 3;
-            repulsionY = (dy / distance) * force * 3;
+            repulsionX = (dx / distance) * force * 4;
+            repulsionY = (dy / distance) * force * 4;
           }
         }
 
@@ -192,27 +266,41 @@ export const ThreeDHuman = () => {
         particle.vy += targetForceY + repulsionY;
         
         // Apply damping
-        particle.vx *= 0.9;
-        particle.vy *= 0.9;
+        particle.vx *= 0.88;
+        particle.vy *= 0.88;
         
         // Update position
         particle.x += particle.vx;
         particle.y += particle.vy;
 
-        // Draw particle with glow effect
+        // Draw particle with enhanced glow effect
         ctx.save();
         ctx.globalAlpha = particle.opacity;
         
-        // Outer glow
-        const gradient = ctx.createRadialGradient(
+        // Large outer glow
+        const outerGradient = ctx.createRadialGradient(
+          particle.x, particle.y, 0,
+          particle.x, particle.y, particle.size * 6
+        );
+        outerGradient.addColorStop(0, particle.color + '80');
+        outerGradient.addColorStop(0.3, particle.color + '40');
+        outerGradient.addColorStop(1, 'transparent');
+        
+        ctx.fillStyle = outerGradient;
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.size * 6, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Medium glow
+        const mediumGradient = ctx.createRadialGradient(
           particle.x, particle.y, 0,
           particle.x, particle.y, particle.size * 3
         );
-        gradient.addColorStop(0, '#00ffff');
-        gradient.addColorStop(0.5, '#0088ff');
-        gradient.addColorStop(1, 'transparent');
+        mediumGradient.addColorStop(0, particle.color);
+        mediumGradient.addColorStop(0.5, particle.color + 'aa');
+        mediumGradient.addColorStop(1, 'transparent');
         
-        ctx.fillStyle = gradient;
+        ctx.fillStyle = mediumGradient;
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.size * 3, 0, Math.PI * 2);
         ctx.fill();
@@ -220,7 +308,7 @@ export const ThreeDHuman = () => {
         // Core particle
         ctx.fillStyle = '#ffffff';
         ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        ctx.arc(particle.x, particle.y, particle.size * 0.8, 0, Math.PI * 2);
         ctx.fill();
         
         ctx.restore();
@@ -253,7 +341,7 @@ export const ThreeDHuman = () => {
               Advanced Digital Human
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Experience the future of human-digital interaction through particle-based avatar technology
+              Experience the future of human-digital interaction through realistic particle-based avatar technology
             </p>
           </div>
         </AnimatedWrapper>
@@ -268,7 +356,7 @@ export const ThreeDHuman = () => {
             <div className="absolute bottom-4 left-4 text-sm text-cyan-300 bg-black/40 backdrop-blur-sm px-4 py-2 rounded-lg border border-cyan-500/30">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
-                Particle System Active • Hover to interact
+                Realistic Digital Human • Hover to interact
               </div>
             </div>
             

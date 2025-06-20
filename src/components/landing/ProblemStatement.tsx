@@ -2,11 +2,18 @@
 import { useState, useEffect } from 'react';
 import { AnimatedWrapper } from './AnimatedWrapper';
 import { Phone, MessageSquare, Video, Users } from 'lucide-react';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const StatCounter = ({ end, duration = 2000, suffix = "" }: { end: number; duration?: number; suffix?: string }) => {
   const [count, setCount] = useState(0);
+  const { ref, isInView } = useScrollAnimation({ threshold: 0.5 });
 
   useEffect(() => {
+    if (!isInView) {
+      setCount(0);
+      return;
+    }
+
     let startTime: number;
     let animationFrame: number;
 
@@ -24,9 +31,13 @@ const StatCounter = ({ end, duration = 2000, suffix = "" }: { end: number; durat
     animationFrame = requestAnimationFrame(animate);
     
     return () => cancelAnimationFrame(animationFrame);
-  }, [end, duration]);
+  }, [end, duration, isInView]);
 
-  return <span>{count.toLocaleString()}{suffix}</span>;
+  return (
+    <div ref={ref}>
+      <span>{count.toLocaleString()}{suffix}</span>
+    </div>
+  );
 };
 
 export const ProblemStatement = () => {
