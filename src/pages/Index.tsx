@@ -1,6 +1,7 @@
 
 import { Header } from "@/components/landing/Header";
 import { Hero } from "@/components/landing/Hero";
+import { ProblemStatement } from "@/components/landing/ProblemStatement";
 import { HowItWorks } from "@/components/landing/HowItWorks";
 import { Features } from "@/components/landing/Features";
 import { ThreeDHuman } from "@/components/landing/ThreeDHuman";
@@ -16,6 +17,7 @@ const Index = () => {
       <Header />
       <main className="flex-grow">
         <Hero />
+        <ProblemStatement />
         <Features />
         <ThreeDHuman />
         <HowItWorks />
