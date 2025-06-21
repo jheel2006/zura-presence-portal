@@ -135,16 +135,16 @@ export const ProblemStatement = () => {
                   <div className="text-3xl font-bold text-red-400 mb-2">
                     <StatCounter end={79} suffix="%" />
                   </div>
-                  <p className="text-sm text-gray-400">of Gen Z say they feel lonely "often" or "always," despite constant digital connectivity</p>
+                  <p className="text-sm text-gray-400">of Gen Z (18-22) say they feel lonely "often" or "always" — even while digitally connected</p>
                 </div>
               </AnimatedWrapper>
               
               <AnimatedWrapper delay={350}>
                 <div className="text-center p-6 bg-gray-900/40 rounded-xl border border-gray-800">
                   <div className="text-3xl font-bold text-orange-400 mb-2">
-                    <StatCounter end={4.1} suffix="B" />
+                    <StatCounter end={4} suffix="B" />
                   </div>
-                  <p className="text-sm text-gray-400">daily video-call minutes, yet we still can't transmit physical warmth or presence</p>
+                  <p className="text-sm text-gray-400">video-meeting minutes are logged every single day on Microsoft Teams alone, across global workplaces</p>
                 </div>
               </AnimatedWrapper>
               
@@ -153,7 +153,7 @@ export const ProblemStatement = () => {
                   <div className="text-3xl font-bold text-yellow-400 mb-2">
                     <StatCounter end={66} suffix="%" />
                   </div>
-                  <p className="text-sm text-gray-400">of couples say being apart physically is their most painful long-distance challenge</p>
+                  <p className="text-sm text-gray-400">of long-distance couples say the lack of physical intimacy is their biggest relationship challenge</p>
                 </div>
               </AnimatedWrapper>
               
@@ -162,7 +162,7 @@ export const ProblemStatement = () => {
                   <div className="text-3xl font-bold text-purple-400 mb-2">
                     <StatCounter end={11} suffix="+" />
                   </div>
-                  <p className="text-sm text-gray-400">hours daily on screens—yet still crave real human connection</p>
+                  <p className="text-sm text-gray-400">hours per day U.S. adults now spend interacting with digital media across multiple screen-based platforms</p>
                 </div>
               </AnimatedWrapper>
             </div>
