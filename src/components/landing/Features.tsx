@@ -71,11 +71,11 @@ export const Features = () => {
                 />
               )}
 
-              {/* Vertical robot/android image with premium borders (different robot) */}
+              {/* Updated image with your uploaded holographic human */}
               <div className="relative flex items-center justify-center">
                 <img
-                  src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=500&q=80"
-                  alt="Tall futuristic robot statue"
+                  src="/lovable-uploads/71bfdef8-2ef6-4d1a-a4e8-949b4a369882.png"
+                  alt="Holographic human figure with glowing network connections"
                   className="w-auto h-[520px] max-w-[340px] object-cover rounded-2xl border-2 border-pink-400/50 bg-black"
                   style={{
                     zIndex: 2,

@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from 'react';
 import { AnimatedWrapper } from './AnimatedWrapper';
 
@@ -74,7 +75,7 @@ export const HeartbeatSync = () => {
           if (intervalRef.current) {
             clearInterval(intervalRef.current);
           }
-        }, 5000);
+        }, 10000);
       }
     }
   };
