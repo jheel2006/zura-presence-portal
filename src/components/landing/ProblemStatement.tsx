@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { AnimatedWrapper } from './AnimatedWrapper';
 import { Phone, MessageSquare, Video, Users } from 'lucide-react';
@@ -134,7 +135,7 @@ export const ProblemStatement = () => {
                   <div className="text-3xl font-bold text-red-400 mb-2">
                     <StatCounter end={79} suffix="%" />
                   </div>
-                  <p className="text-sm text-gray-400">of Gen Z (18-22) say they feel lonely "often" or "always"</p>
+                  <p className="text-sm text-gray-400">of Gen Z say they feel lonely "often" or "always," despite constant digital connectivity</p>
                 </div>
               </AnimatedWrapper>
               
@@ -143,7 +144,7 @@ export const ProblemStatement = () => {
                   <div className="text-3xl font-bold text-orange-400 mb-2">
                     <StatCounter end={4.1} suffix="B" />
                   </div>
-                  <p className="text-sm text-gray-400">video-meeting minutes are logged every single day on Microsoft Teams alone</p>
+                  <p className="text-sm text-gray-400">daily video-call minutes, yet we still can't transmit physical warmth or presence</p>
                 </div>
               </AnimatedWrapper>
               
@@ -152,7 +153,7 @@ export const ProblemStatement = () => {
                   <div className="text-3xl font-bold text-yellow-400 mb-2">
                     <StatCounter end={66} suffix="%" />
                   </div>
-                  <p className="text-sm text-gray-400">of long-distance couples say the lack of physical intimacy is their biggest challenge</p>
+                  <p className="text-sm text-gray-400">of couples say being apart physically is their most painful long-distance challenge</p>
                 </div>
               </AnimatedWrapper>
               
@@ -161,7 +162,7 @@ export const ProblemStatement = () => {
                   <div className="text-3xl font-bold text-purple-400 mb-2">
                     <StatCounter end={11} suffix="+" />
                   </div>
-                  <p className="text-sm text-gray-400">hours per day U.S. adults now spend interacting with digital media</p>
+                  <p className="text-sm text-gray-400">hours daily on screens—yet still crave real human connection</p>
                 </div>
               </AnimatedWrapper>
             </div>
