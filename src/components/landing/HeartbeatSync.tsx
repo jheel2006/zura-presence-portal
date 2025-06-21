@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from 'react';
 import { AnimatedWrapper } from './AnimatedWrapper';
 
@@ -9,6 +8,7 @@ export const HeartbeatSync = () => {
   const [showPulse, setShowPulse] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const resetTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const displayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleTap = () => {
     const now = Date.now();
@@ -16,22 +16,27 @@ export const HeartbeatSync = () => {
     setTaps(newTaps);
     setIsActive(true);
 
-    // Clear existing reset timeout
+    // Clear existing timeouts
     if (resetTimeoutRef.current) {
       clearTimeout(resetTimeoutRef.current);
+    }
+    if (displayTimeoutRef.current) {
+      clearTimeout(displayTimeoutRef.current);
     }
 
     // Reset after 3 seconds of no tapping
     resetTimeoutRef.current = setTimeout(() => {
       setIsActive(false);
       setShowPulse(false);
+      setTaps([]);
+      setHeartbeatInterval(null);
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
       }
     }, 3000);
 
-    // Calculate average interval if we have enough taps
-    if (newTaps.length >= 3) {
+    // Calculate average interval if we have enough taps (5 now)
+    if (newTaps.length >= 5) {
       const intervals = [];
       for (let i = 1; i < newTaps.length; i++) {
         intervals.push(newTaps[i] - newTaps[i - 1]);
@@ -59,6 +64,17 @@ export const HeartbeatSync = () => {
             }, 10);
           }
         }, avgInterval);
+
+        // Keep the animation for 5 seconds after detection
+        displayTimeoutRef.current = setTimeout(() => {
+          setShowPulse(false);
+          setTaps([]);
+          setHeartbeatInterval(null);
+          setIsActive(false);
+          if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+          }
+        }, 5000);
       }
     }
   };
@@ -70,6 +86,9 @@ export const HeartbeatSync = () => {
       }
       if (resetTimeoutRef.current) {
         clearTimeout(resetTimeoutRef.current);
+      }
+      if (displayTimeoutRef.current) {
+        clearTimeout(displayTimeoutRef.current);
       }
     };
   }, []);
@@ -151,8 +170,8 @@ export const HeartbeatSync = () => {
                   <p className="text-gray-400 text-lg">
                     {taps.length === 0 ? (
                       "Tap the orb to begin"
-                    ) : taps.length < 3 ? (
-                      `Keep tapping... (${taps.length}/3)`
+                    ) : taps.length < 5 ? (
+                      `Keep tapping... (${taps.length}/5)`
                     ) : (
                       "Finding your rhythm..."
                     )}
@@ -186,7 +205,7 @@ export const HeartbeatSync = () => {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes pulse-custom {
           0%, 100% {
             transform: scale(1);
