@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { AnimatedWrapper } from './AnimatedWrapper';
 import { Phone, MessageSquare, Video, Users } from 'lucide-react';
@@ -133,36 +132,36 @@ export const ProblemStatement = () => {
               <AnimatedWrapper delay={200}>
                 <div className="text-center p-6 bg-gray-900/40 rounded-xl border border-gray-800">
                   <div className="text-3xl font-bold text-red-400 mb-2">
-                    <StatCounter end={74} suffix="%" />
+                    <StatCounter end={79} suffix="%" />
                   </div>
-                  <p className="text-sm text-gray-400">of people feel lonelier than ever despite social media</p>
+                  <p className="text-sm text-gray-400">of Gen Z (18-22) say they feel lonely "often" or "always"</p>
                 </div>
               </AnimatedWrapper>
               
               <AnimatedWrapper delay={350}>
                 <div className="text-center p-6 bg-gray-900/40 rounded-xl border border-gray-800">
                   <div className="text-3xl font-bold text-orange-400 mb-2">
-                    <StatCounter end={3.2} suffix="B" />
+                    <StatCounter end={4.1} suffix="B" />
                   </div>
-                  <p className="text-sm text-gray-400">video calls made daily, yet physical touch remains impossible</p>
+                  <p className="text-sm text-gray-400">video-meeting minutes are logged every single day on Microsoft Teams alone</p>
                 </div>
               </AnimatedWrapper>
               
               <AnimatedWrapper delay={500}>
                 <div className="text-center p-6 bg-gray-900/40 rounded-xl border border-gray-800">
                   <div className="text-3xl font-bold text-yellow-400 mb-2">
-                    <StatCounter end={89} suffix="%" />
+                    <StatCounter end={66} suffix="%" />
                   </div>
-                  <p className="text-sm text-gray-400">miss physical presence in long-distance relationships</p>
+                  <p className="text-sm text-gray-400">of long-distance couples say the lack of physical intimacy is their biggest challenge</p>
                 </div>
               </AnimatedWrapper>
               
               <AnimatedWrapper delay={650}>
                 <div className="text-center p-6 bg-gray-900/40 rounded-xl border border-gray-800">
                   <div className="text-3xl font-bold text-purple-400 mb-2">
-                    <StatCounter end={12} suffix="hrs" />
+                    <StatCounter end={11} suffix="+" />
                   </div>
-                  <p className="text-sm text-gray-400">average daily screen time, searching for connection</p>
+                  <p className="text-sm text-gray-400">hours per day U.S. adults now spend interacting with digital media</p>
                 </div>
               </AnimatedWrapper>
             </div>
