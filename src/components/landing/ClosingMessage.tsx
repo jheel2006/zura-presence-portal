@@ -60,7 +60,7 @@ export const ClosingMessage = () => {
       </div>
       
       {/* Main content */}
-      <div className="relative z-10 text-center px-6 max-w-5xl mx-auto space-y-6">
+      <div className="relative z-10 text-center px-6 max-w-5xl mx-auto space-y-8">
         <AnimatedLine threshold={0.4}>
           <h2 className="font-orbitron text-2xl md:text-3xl lg:text-4xl font-light text-white leading-tight">
             What if a hug could travel across continents?
@@ -80,7 +80,7 @@ export const ClosingMessage = () => {
         </AnimatedLine>
         
         <AnimatedLine delay={2400} threshold={0.2}>
-          <div className="pt-6">
+          <div className="pt-8">
             <h1 className="font-orbitron text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent leading-tight">
               Zura is our answer.
             </h1>
