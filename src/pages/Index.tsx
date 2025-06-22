@@ -1,4 +1,5 @@
 
+import { useEffect } from "react";
 import { Header } from "@/components/landing/Header";
 import { Hero } from "@/components/landing/Hero";
 import { ProblemStatement } from "@/components/landing/ProblemStatement";
@@ -10,6 +11,11 @@ import { Footer } from "@/components/landing/Footer";
 import { GlobalCursorGlow } from "@/components/GlobalCursorGlow";
 
 const Index = () => {
+  useEffect(() => {
+    // Scroll to top when the component mounts (page loads/refreshes)
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="flex flex-col min-h-screen">
       {/* Global cursor glow overlay */}
