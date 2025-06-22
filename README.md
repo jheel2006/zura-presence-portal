@@ -37,11 +37,11 @@ Zura is a response to that ache — the kind that voice notes can’t solve. It�
 
 This website was built using:
 
-- **Vite** – Fast and modern frontend tooling  
-- **TypeScript** – Type-safe JavaScript  
-- **React** – Component-based UI  
-- **shadcn/ui** – Clean, accessible UI components  
-- **Tailwind CSS** – Utility-first styling, customized for a soft, modern feel
+- Vite  
+- TypeScript
+- React
+- shadcn/ui 
+- Tailwind CSS 
 
 ---
 
