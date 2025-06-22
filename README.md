@@ -23,7 +23,7 @@ It includes:
 
 ## 💡 Why We Built This
 
-Zura was created as part of a university Communication & Technology project. It’s speculative — meaning it doesn’t exist (yet) — but it’s grounded in real trends:  
+Zura was created as part of NYUAD's IM-UH 1012 Communication & Technology final project. It’s speculative — meaning it doesn’t exist (yet) — but it’s grounded in real trends:  
 - Families living apart  
 - The limits of digital communication  
 - Emerging soft robotics and biometric tech  
