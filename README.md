@@ -1,73 +1,52 @@
-# Welcome to your Lovable project
+# Zura – Presence, Redefined
 
-## Project info
+**Zura** is a speculative design project that imagines a new kind of long-distance connection — one that goes beyond screens. Built as a website prototype, Zura explores how touch, warmth, and presence might be shared across distance using soft robotics and emotional technology.
 
-**URL**: https://lovable.dev/projects/98bbb1c9-0a95-4585-b6da-745dfa3af9c4
+This project asks:  
+> *What if a hug could travel across continents?*
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## 🧩 What the Website Shows
 
-**Use Lovable**
+The site walks you through a near-future product called Zura — a soft, morphable companion that transforms into a gentle version of someone you love. It’s made to sit with you, breathe beside you, and offer quiet comfort when a video call just isn’t enough.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/98bbb1c9-0a95-4585-b6da-745dfa3af9c4) and start prompting.
+It includes:
 
-Changes made via Lovable will be committed automatically to this repo.
+- A bold landing page with the tagline **“Presence, Redefined”**
+- The emotional problem behind Zura, backed by real-world stats  
+- A breakdown of the imagined features: biometric scans, haptic feedback, nano-movement, and heartbeat syncing  
+- A simple 3-step process: **Capture → Send → Embrace**
+- A soft, moody tone throughout that reflects the emotional heart of the idea
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 💡 Why We Built This
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+Zura was created as part of a university Communication & Technology project. It’s speculative — meaning it doesn’t exist (yet) — but it’s grounded in real trends:  
+- Families living apart  
+- The limits of digital communication  
+- Emerging soft robotics and biometric tech  
+- A growing desire for *emotional presence*, not just connectivity
 
-Follow these steps:
+Zura is a response to that ache — the kind that voice notes can’t solve. It’s not about replacing people. It’s about helping them show up, even when they can’t.
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+---
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## 🛠 Tech Stack
 
-# Step 3: Install the necessary dependencies.
-npm i
+This website was built using:
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+- **Vite** – Fast and modern frontend tooling  
+- **TypeScript** – Type-safe JavaScript  
+- **React** – Component-based UI  
+- **shadcn/ui** – Clean, accessible UI components  
+- **Tailwind CSS** – Utility-first styling, customized for a soft, modern feel
 
-**Edit a file directly in GitHub**
+---
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 📝 A Note
 
-**Use GitHub Codespaces**
+Zura is not a real product. It’s a design fiction — a “what if” built to feel possible. The goal wasn’t to sell something, but to tell a story about what presence could mean in a time of constant connection and constant distance.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/98bbb1c9-0a95-4585-b6da-745dfa3af9c4) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+Thanks for visiting.
