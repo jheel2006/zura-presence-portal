@@ -60,28 +60,28 @@ export const ClosingMessage = () => {
       </div>
       
       {/* Main content */}
-      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto space-y-8">
+      <div className="relative z-10 text-center px-6 max-w-5xl mx-auto space-y-6">
         <AnimatedLine threshold={0.4}>
-          <h2 className="font-orbitron text-4xl md:text-5xl lg:text-6xl font-light text-white leading-tight">
+          <h2 className="font-orbitron text-2xl md:text-3xl lg:text-4xl font-light text-white leading-tight">
             What if a hug could travel across continents?
           </h2>
         </AnimatedLine>
         
         <AnimatedLine delay={800} threshold={0.3}>
-          <h2 className="font-orbitron text-4xl md:text-5xl lg:text-6xl font-light text-gray-200 leading-tight">
+          <h2 className="font-orbitron text-2xl md:text-3xl lg:text-4xl font-light text-gray-200 leading-tight">
             What if distance didn't mean disconnection?
           </h2>
         </AnimatedLine>
         
         <AnimatedLine delay={1600} threshold={0.3}>
-          <h2 className="font-orbitron text-4xl md:text-5xl lg:text-6xl font-light text-gray-300 leading-tight">
+          <h2 className="font-orbitron text-2xl md:text-3xl lg:text-4xl font-light text-gray-300 leading-tight">
             What if presence could be felt — again?
           </h2>
         </AnimatedLine>
         
         <AnimatedLine delay={2400} threshold={0.2}>
-          <div className="pt-8">
-            <h1 className="font-orbitron text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent leading-tight">
+          <div className="pt-6">
+            <h1 className="font-orbitron text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent leading-tight">
               Zura is our answer.
             </h1>
           </div>
