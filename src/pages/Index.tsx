@@ -5,6 +5,7 @@ import { ProblemStatement } from "@/components/landing/ProblemStatement";
 import { HowItWorks } from "@/components/landing/HowItWorks";
 import { Features } from "@/components/landing/Features";
 import { HeartbeatSync } from "@/components/landing/HeartbeatSync";
+import { ClosingMessage } from "@/components/landing/ClosingMessage";
 import { Footer } from "@/components/landing/Footer";
 import { GlobalCursorGlow } from "@/components/GlobalCursorGlow";
 
@@ -21,6 +22,7 @@ const Index = () => {
         <Features />
         <HowItWorks />
         <HeartbeatSync />
+        <ClosingMessage />
       </main>
       <Footer />
     </div>
