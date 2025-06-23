@@ -5,6 +5,9 @@
 This project asks:  
 > *What if a hug could travel across continents?*
 
+[Explore the Zura website](https://zura-presence-portal.vercel.app/)
+[View the Zura app design files on Figma](https://www.figma.com/design/oVoSqWWs58HTdY1wmCL7OF/ZURA?node-id=2-5&t=n1RBr8gC9f1xnPvn-0)
+[Preview the Zura app prototype on Figma](https://www.figma.com/proto/oVoSqWWs58HTdY1wmCL7OF/ZURA?node-id=2-5&t=n1RBr8gC9f1xnPvn-0&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=2%3A5)
 ---
 
 ## 🧩 What the Website Shows
