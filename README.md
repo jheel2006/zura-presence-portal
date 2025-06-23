@@ -49,4 +49,4 @@ This website was built using:
 
 Zura is not a real product. It’s a design fiction — a “what if” built to feel possible. The goal wasn’t to sell something, but to tell a story about what presence could mean in a time of constant connection and constant distance.
 
-Thanks for visiting.
+Thanks for visiting :)
