@@ -20,7 +20,7 @@ export const Hero = () => {
           Presence, <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-500">Redefined.</span>
         </h1>
         <p className="mt-6 max-w-3xl mx-auto text-lg md:text-xl text-gray-300 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-          Zura is a morphable companion that brings your loved ones to you, in person. Experience touch-based presence that transcends the screen.
+          Zura (Zero-Distance Unified Remote Assistant) is a morphable companion that brings your loved ones to you, in person. Experience touch-based presence that transcends the screen.
         </p>
         <div className="mt-10 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
           <Button size="lg" className="font-bold text-lg bg-gradient-to-r from-pink-500 to-purple-600 text-white hover:opacity-90 transition-opacity glow-shadow px-8 py-6">
