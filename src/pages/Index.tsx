@@ -12,8 +12,22 @@ import { GlobalCursorGlow } from "@/components/GlobalCursorGlow";
 
 const Index = () => {
   useEffect(() => {
-    // Scroll to top when the component mounts (page loads/refreshes)
-    window.scrollTo(0, 0);
+    // Ensure scroll to top happens after page load
+    const scrollToTop = () => {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'instant'
+      });
+    };
+
+    // Immediate scroll
+    scrollToTop();
+    
+    // Also scroll after a brief delay to ensure it works
+    const timeoutId = setTimeout(scrollToTop, 100);
+    
+    return () => clearTimeout(timeoutId);
   }, []);
 
   return (
